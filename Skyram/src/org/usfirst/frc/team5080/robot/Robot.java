@@ -3,6 +3,7 @@ package org.usfirst.frc.team5080.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -17,6 +18,7 @@ public class Robot extends IterativeRobot {
 	Joystick chassis;
 	Joystick lift;
 	int autoLoopCounter;
+	Talon liftMotor;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -24,8 +26,9 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	skyram = new RobotDrive(0,1);
-    	chassis = new Joystick(1);
-    	lift = new Joystick(2);
+    	chassis = new Joystick(0);
+    	lift = new Joystick(1);
+    	liftMotor = new Talon(2);
     }
     
     /**
@@ -59,6 +62,23 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         skyram.arcadeDrive(chassis);
+        
+        //tote up
+        if (lift.getRawButton(6) == true) {
+        	liftMotor.set(0.5);
+        }
+        //tote down
+        if (lift.getRawButton(7) == true) {
+        	liftMotor.set(-0.5);
+        }
+        //container up
+        if (lift.getRawButton(11) == true) {
+        	liftMotor.set(0.5);
+        }
+        //container down
+        if (lift.getRawButton(10) == true) {
+        	liftMotor.set(-0.5)
+        }
     }
     
     /**
