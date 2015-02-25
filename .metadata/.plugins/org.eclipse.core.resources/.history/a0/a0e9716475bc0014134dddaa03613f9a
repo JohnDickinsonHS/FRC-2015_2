@@ -63,10 +63,10 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        skyram.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-        skyram.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         skyram.arcadeDrive(chassis);
         //skyram.arcadeDrive(forward, turn);
+        skyram.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        skyram.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         //arms up
         if (lift.getRawButton(6) == true) {
         	liftMotor.set(0.5);
