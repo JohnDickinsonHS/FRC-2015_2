@@ -20,8 +20,8 @@ public class Robot extends IterativeRobot {
 	int autoLoopCounter;
 	Talon liftMotor;
 
-	double moveValue = chassis.getThrottle();
-	double rotateValue = -(chassis.getTwist());
+	//double forward = chassis.getThrottle();
+	//double turn = -(chassis.getTwist());
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -65,8 +65,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         skyram.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         skyram.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-        //skyram.arcadeDrive(chassis);
-        skyram.arcadeDrive(moveValue, rotateValue);
+        skyram.arcadeDrive(chassis);
+        //skyram.arcadeDrive(forward, turn);
         //arms up
         if (lift.getRawButton(6) == true) {
         	liftMotor.set(0.5);
