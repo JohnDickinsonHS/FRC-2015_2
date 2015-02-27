@@ -14,26 +14,30 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	RobotDrive skyram = new RobotDrive(0, 1);
-	Joystick chassis = new Joystick(0);
-	Joystick lift = new Joystick(1);
-	int autoLoopCounter = 0;
-	Talon liftMotor = new Talon(2);
+	RobotDrive skyram;
+	Joystick chassis;
+	Joystick lift;
+	int autoLoopCounter;
+	Talon liftMotor;
 
-	
+	//double moveValue = chassis.getY();
+	//double rotateValue = chassis.
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	
+    	skyram = new RobotDrive(0, 1);
+    	chassis = new Joystick(0);
+    	lift = new Joystick(1);
+    	liftMotor = new Talon(2);
     }
     
     /**
      * This function is run once each time the robot enters autonomous mode
      */
     public void autonomousInit() {
-    	
+    	autoLoopCounter = 0;
     }
 
     /**
