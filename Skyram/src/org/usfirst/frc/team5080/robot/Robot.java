@@ -14,39 +14,42 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	RobotDrive skyram = new RobotDrive(0, 1);
-	Joystick chassis = new Joystick(0);
-	Joystick lift = new Joystick(1);
-	int autoLoopCounter = 0;
-	Talon liftMotor = new Talon(2);
+ RobotDrive skyram = new RobotDrive(0, 1);
+ Joystick chassis = new Joystick(0);
+ Joystick lift = new Joystick(1);
+ int autoLoopCounter = 0;
+ Talon liftMotor = new Talon(4);
+ 
 
-	
+ 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	
+     
     }
     
     /**
      * This function is run once each time the robot enters autonomous mode
      */
     public void autonomousInit() {
-    	
+     
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(autoLoopCounter < 127) //Check if we've completed 126 loops (approximately 11' 7")
-		{
-			skyram.drive(0.5, 0.0); 	// drive forwards half speed
-			autoLoopCounter++;
-			} else {
-			skyram.drive(0.0, 0.0); 	// stop robot
-		}
+      if(autoLoopCounter < 270) { //over flat section (240) or over step (260)
+        skyram.drive(-0.35, 0.0);  // drive forwards half speed
+        autoLoopCounter++;
+      } else if (autoLoopCounter < 275) { //over flat section (245) or over step (265)
+        skyram.drive(0.25, 0.0);
+        autoLoopCounter++;
+      } else {
+        skyram.drive(0.0, 0.0);  // stop robot
+      }
     }
     
     /**
@@ -59,29 +62,22 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        //skyram.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-        //skyram.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-        skyram.arcadeDrive(chassis);
-        //skyram.arcadeDrive(moveValue, rotateValue);
-        //arms up
-        if (lift.getRawButton(6) == true) {
-        	liftMotor.set(0.5);
-        } else {
-        	liftMotor.set(0.0);
-        }
-        //arms down
-        if (lift.getRawButton(7) == true) {
-        	liftMotor.set(-0.5);
-        } else {
-        	liftMotor.set(0.0);
-        }
+      skyram.arcadeDrive(chassis);
+      if (chassis.getRawButton(9) == true) {
+        liftMotor.set(0.5);
+      } else if (chassis.getRawButton(11) == true) {
+        liftMotor.set(-0.45);
+      } else {
+        liftMotor.set(0.0);
+      }
+        
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	LiveWindow.run();
+     LiveWindow.run();
     }
     
 }
